@@ -3,24 +3,31 @@ var path = require('path');
 module.exports = {
     src: path.resolve(__dirname, 'src'),
     dist: path.resolve(__dirname, 'dist'),
+    rootPath: path.resolve(__dirname),
     requireMents: [],
-    converter: {
+    devCheck: {
         ".scss$": {
             filename: "[path]/[name].css",
             callbacks: [
-                require('./func/sassRenderer')
+                function(e) {
+                    return e.data
+                }
             ]
         },
-        // ".hbs$": {
-        //     filename: "[path]/[name].html",
-        //     callbacks: [
-        //         require('./func/hbsRenderer')
-        //     ]
-        // },
+        ".hbs$": {
+            filename: "[path]/[name].html",
+            callbacks: [
+                function(e) {
+                    return e.data
+                }
+            ]
+        },
         ".js$": {
             filename: "[path]/[name].js",
             callbacks: [
-                require('./func/jsRenderer')
+                function(e) {
+                    return e.data
+                }
             ]
         },
         ".html$": {
