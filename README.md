@@ -49,7 +49,7 @@ this functions will get an object and must return a modified context.
 
 note that we are looking for files that end with `scss` but register them as `css` so we dont need to change path`s after building our project
 
-the functions get an object as parameter with the following properties.
+the functions get two parameters. The first is the current context and the second is an object with the following properties.
 
 `src`
 holds the source code of the processed file
