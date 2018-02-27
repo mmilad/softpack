@@ -3,7 +3,7 @@
 Softpack takes a configuration to perform function on the given context of files that where registered through an regEx
 
 like:
-<code>
+<pre>
 var config = {
     src: path.resolve(__dirname, 'src'),
     dist: path.resolve(__dirname, 'dist'),
@@ -32,7 +32,7 @@ var config = {
     ]
 }
 softpack.server(config)
-</code>
+</pre>
 
 `test` should be a regular expression to check if current file should undergo the init / render procedure
 
@@ -64,12 +64,12 @@ hold filename of processed file (filename.extension)
 holds current context, will be modified with each return of a `render` function
 
 render function example:
-<code>
+<pre>
 var handlebars = require('handlebars');
 var hbsRenderer = function (o) {
     return handlebars.compile(o.context)({})
 }
-</code>
+</pre>
 
 When `hbsRenderer` is now applied to an render array it will perform the handlebars compile function,
 add `{}` as the templates context and return the compiled string.
