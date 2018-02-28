@@ -10,23 +10,28 @@ var config = {
     rootPath: path.resolve(__dirname),
     actions: [
         {
-            test: ".hbs\$",
+            test: ".hbs$",
             init: [
-                yourHandleBarPartialRegisterer
+                yourHandlebarPartialRegisterer
             ]
-        },
-        {
-            test: ".scss$",
-            fileName: "[path]/[name].css",
+        }, {
+            test: ".hbs$",
+            fileName: "[path]/[name].html",
             render: [
-                yourSassRenderer
+                yourHandlebarTemplateRenderer
             ]
-        },{
-            test: ".html\$",
+        }, {
+            test: ".html$",
             fileName: "[path]/[name].html",
             hotLoad: true,
             render: [
                 yourHtmlTemplatRenderer
+            ]
+        }, {
+            test: ".scss$",
+            fileName: "[path]/[name].css",
+            render: [
+                yourSassRenderer
             ]
         }
     ]
