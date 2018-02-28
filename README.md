@@ -1,6 +1,8 @@
 # softpack
 
-Softpack takes a configuration to perform function on the given context of files that where registered through an regEx
+Softpack takes a configuration to perform function on the given context of files that where registered through an regEx.
+
+It comes with two function.
 
 like:
 <pre>

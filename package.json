@@ -14,10 +14,14 @@
   "license": "ISC",
   "devDependencies": {},
   "dependencies": {
+    "autoprefixer": "^8.0.0",
     "chokidar": "^2.0.2",
     "express": "^4.16.2",
     "handlebars": "^4.0.11",
     "mime": "^2.2.0",
+    "node-sass": "^4.7.2",
+    "postcss-js": "^1.0.1",
+    "rimraf": "^2.6.2",
     "socket.io": "^2.0.4"
   }
 }
