@@ -20,6 +20,8 @@ Configuration for development server:
  - `rootPath` absolute path to project
  - `port` default is 8000
  - `host` default is '0.0.0.0' ( localhost / yourIp)
+ - `socketCallbacks` an object with key: function that can be registered if socket is enabled, the frontend can then emit to server to make debugging easier
+
 
 
 note: 
