@@ -13,16 +13,48 @@ softpack.server(config)
 softpack.build(config)
 </pre>
 
-Configuration for development server:
+Configuration for server/build:
 
  - `src` path to source directory
  - `dist` path to build directory
  - `rootPath` absolute path to project
  - `port` default is 8000
  - `host` default is '0.0.0.0' ( localhost / yourIp)
- - `socketCallbacks` an object with key: function that can be registered if socket is enabled, the frontend can then emit to server to make debugging easier
+ - `socketCallbacks` an object with `key: function` that can be registered if socketLoad is enabled, the frontend can then emit to server to make debugging easier
+ - `actions` an array of of objet with the following properties:
+    - `socketLoad` set to true to add socket io snippet to html files (disabled on build)
+    - `test` an anymatch regExp to path files like `".hbs"` (check npm anymatch package)
+    - `init` an array of functions that recive 2 parameters (context and an object of the current processed configuration)
+    - `render` an array of functions that recive 2 parameters (context and an object of the current processed configuration)
+    - `keep` a boolean to keep or not keep original file on build (false by default)
+    - `fileName` an absolute path to serve the current processed file with name and extension
+    - `socketLoad` set to false to add socket.io support.
+    - `bundleName` a string or function which returns a string, bundles all matching files 
 
+`socketCallbacks` example:
 
+<pre>
+...
+socketCallbacks: {
+    log: function(msg) {
+        console.log(msg)
+    },
+    foo: function(o) {
+        console.log("foo is emitted with", o.msg)
+    }
+}
+...
+</pre>
+and on frontend
+
+<pre>
+...
+socket.emit("log", "hello server")
+socket.emit("foo", {
+ msg: "hello foo!"   
+})
+...
+</pre>
 
 note: 
 while serving files from
@@ -30,14 +62,6 @@ while serving files from
 will be availeble in 
 `/my/path/to/project/{distDirectory}/..`
 
-`actions` an array of of objet with the following properties:
- - `test` an anymatch regExp to path files like `".hbs"` (check npm anymatch package)
- - `init` an array of functions that recive 2 parameters (context and an object of the current processed configuration)
- - `render` an array of functions that recive 2 parameters (context and an object of the current processed configuration)
- - `keep` a boolean to keep or not keep original file on build (false by default)
- - `fileName` an absolute path to serve the current processed file with name and extension
- - `socketLoad` set to false to add socket.io support.
- - `bundleName` a string or function which returns a string, bundles all matching files 
 
 the diffrence between the functions inside the `init` array and the `render` array are that the functions inside the `init` array will execute once a file was added to the watcher or changed and the functions inside the `render` array are executed when the file is requested through the `fileName` path.
 Render functions must return a context.
@@ -47,11 +71,21 @@ when setting the `fileName` you can add `[path]` and `[name]`.
 `[name]`is replaced with the name of the current processed file, but without file extension.
 
 example config:
+
 <pre>
+
 var config = {
     src: path.resolve(__dirname, 'src'),
     dist: path.resolve(__dirname, 'dist'),
     rootPath: path.resolve(__dirname),
+    socketCallbacks: {
+        log: function(msg) {
+            console.log(msg)
+        },
+        foo: function(o) {
+            console.log("foo is emitted with", o.msg)
+        }
+    }
     actions: [
         {
             test: "*.hbs",
@@ -87,6 +121,8 @@ var config = {
     ]
 }
 softpack.server(config)
+// softpack.build(config)
+
 </pre>
 
 note that we are looking for files that end with `scss` but register them as `css` so we dont need to change path`s after building our project
