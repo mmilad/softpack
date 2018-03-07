@@ -33,13 +33,11 @@ will be availeble in
 `actions` an array of of objet with the following properties:
  - `test` an anymatch regExp to path files like `".hbs"` (check npm anymatch package)
  - `init` an array of functions that recive 2 parameters (context and an object of the current processed configuration)
-
-or
-
- - `test` a regExp to path files like `".scss"` 
  - `render` an array of functions that recive 2 parameters (context and an object of the current processed configuration)
+ - `keep` a boolean to keep or not keep original file on build (false by default)
  - `fileName` an absolute path to serve the current processed file with name and extension
  - `socketLoad` set to false to add socket.io support.
+ - `bundleName` a string or function which returns a string, bundles all matching files 
 
 the diffrence between the functions inside the `init` array and the `render` array are that the functions inside the `init` array will execute once a file was added to the watcher or changed and the functions inside the `render` array are executed when the file is requested through the `fileName` path.
 Render functions must return a context.
@@ -48,7 +46,7 @@ when setting the `fileName` you can add `[path]` and `[name]`.
 `[path]` will be replaced with the absolute path of current processed file. 
 `[name]`is replaced with the name of the current processed file, but without file extension.
 
-server usage:
+example config:
 <pre>
 var config = {
     src: path.resolve(__dirname, 'src'),
@@ -74,6 +72,12 @@ var config = {
                 yourHtmlTemplatRenderer
             ]
         }, {
+            test: "js/**/*.js",
+            bundleName: "js/all.js",
+            render: [
+                jsRenderer
+            ]
+        }, {
             test: "**/*.scss",
             bundleName: "all.css",
             render: [
@@ -87,32 +91,7 @@ softpack.server(config)
 
 note that we are looking for files that end with `scss` but register them as `css` so we dont need to change path`s after building our project
 
-
-
-Configuration for build precess:
-
-`actions` an array of of objet with the following properties:
- - `test` a regExp to path files like `".hbs"` 
- - `init` an array of functions that recive 2 parameters (context and an object of the current processed configuration)
- - `keep` set to true to keep files that are initialized. by default only rendered or untracked files are copied to dist
- 
-or
-
- - `test` a regExp to path files like `".scss"` 
- - `render` an array of functions that recive 2 parameters (context and an object of the current processed configuration)
- - `fileName` an absolute path to serve the current processed file with path,name and extension
- 
-As you can see the configurations are almost the same for the server or build process.
-
-
-the functions in `init` and `render` get two parameters.
-The first is the current context and the second is an object with the following properties.
-
-`src` holds the source code of the processed file
-`fullPath` holds the absolute path of processed file (/home/path/to/project/filename.extension)
-`filePath` holds the absolute path of processed file withour filename  (/home/path/to/project)
-`fileName` hold filename of processed file (filename.extension)
-`context` holds current context, which will be modified with each return of a `render` function
+the `softpack.server` and `softpack.build` function take the same configuration
 
 render function example:
 
