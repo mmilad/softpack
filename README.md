@@ -15,8 +15,8 @@ softpack.build(config)
 
 Configuration for development server:
 
- - `src` absolute path to source directory
- - `dist` absolute path to build directory
+ - `src` path to source directory
+ - `dist` path to build directory
  - `rootPath` absolute path to project
  - `port` default is 8000
  - `host` default is '0.0.0.0' ( localhost / yourIp)
@@ -31,7 +31,7 @@ will be availeble in
 `/my/path/to/project/{distDirectory}/..`
 
 `actions` an array of of objet with the following properties:
- - `test` a regExp to path files like `".hbs"` 
+ - `test` an anymatch regExp to path files like `".hbs"` (check npm anymatch package)
  - `init` an array of functions that recive 2 parameters (context and an object of the current processed configuration)
 
 or
@@ -56,26 +56,26 @@ var config = {
     rootPath: path.resolve(__dirname),
     actions: [
         {
-            test: ".hbs$",
+            test: "*.hbs",
             init: [
                 yourHandlebarPartialRegisterer
             ]
         }, {
-            test: ".hbs$",
+            test: "*.hbs",
             fileName: "[path]/[name].html",
             render: [
                 yourHandlebarTemplateRenderer
             ]
         }, {
-            test: ".html$",
+            test: "*.html",
             fileName: "[path]/[name].html",
             socketLoad: true,
             render: [
                 yourHtmlTemplatRenderer
             ]
         }, {
-            test: ".scss$",
-            fileName: "[path]/[name].css",
+            test: "**/*.scss",
+            bundleName: "all.css",
             render: [
                 yourSassRenderer
             ]
@@ -115,6 +115,7 @@ The first is the current context and the second is an object with the following 
 `context` holds current context, which will be modified with each return of a `render` function
 
 render function example:
+
 <pre>
 var handlebars = require('handlebars');
 var hbsRenderer = function (o) {
@@ -125,4 +126,3 @@ var hbsRenderer = function (o) {
 When `hbsRenderer` is now applied to an render array it will perform the handlebars compile function,
 add `{}` as the templates context and return the compiled string.
 Obviously you would most likely add some more data than `{}`, but thats up to you.
-
