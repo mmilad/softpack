@@ -20,6 +20,7 @@ Configuration for server/build:
  - `rootPath` absolute path to project
  - `port` default is 8000
  - `host` default is '0.0.0.0' ( localhost / yourIp)
+ - `ignore` an array of strings with an anymatch pattern to ignore directorys / files
  - `socketCallbacks` an object with `key: function` that can be registered if socketLoad is enabled, the frontend can then emit to server to make debugging easier
  - `actions` an array of of objet with the following properties:
     - `socketLoad` set to true to add socket io snippet to html files (disabled on build)
@@ -78,6 +79,12 @@ var config = {
     src: path.resolve(__dirname, 'src'),
     dist: path.resolve(__dirname, 'dist'),
     rootPath: path.resolve(__dirname),
+    ignore: [
+        "src/ignored",
+        "src/ignored_also",
+        "src/ignored_js_in_this_directory/*.js",
+        "src/ignored_js_recursive/**/*.js",
+    ],
     socketCallbacks: {
         log: function(msg) {
             console.log(msg)
