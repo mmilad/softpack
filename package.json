@@ -13,6 +13,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {},
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/mmilad/softpack.git"
+  },
   "dependencies": {
     "chokidar": "^2.0.2",
     "express": "^4.16.2",
