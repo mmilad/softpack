@@ -2,6 +2,11 @@
 
 Softpack takes a configuration to perform function on the given context of files that where registered through an regEx.
 
+added github.
+
+there will be more updates in the future!
+
+
 It comes with two function.
 <pre>
 var softpack = require("softpack")
@@ -74,16 +79,13 @@ when setting the `fileName` you can add `[path]` and `[name]`.
 example config:
 
 <pre>
-
 var config = {
-    src: path.resolve(__dirname, 'src'),
-    dist: path.resolve(__dirname, 'dist'),
+    src: 'src',
+    dist: 'dist',
     rootPath: path.resolve(__dirname),
     ignore: [
         "src/ignored",
         "src/ignored_also",
-        "src/ignored_js_in_this_directory/*.js",
-        "src/ignored_js_recursive/**/*.js",
     ],
     socketCallbacks: {
         log: function(msg) {
@@ -92,37 +94,38 @@ var config = {
         foo: function(o) {
             console.log("foo is emitted with", o.msg)
         }
-    }
+    },
+    log: {
+        change: true,
+        server: true,
+    },
     actions: [
         {
-            test: "*.hbs",
+            test: "**/*.hbs",
             init: [
-                yourHandlebarPartialRegisterer
+                hbs.registerPartial
             ]
-        }, {
-            test: "*.hbs",
-            fileName: "[path]/[name].html",
-            render: [
-                yourHandlebarTemplateRenderer
+        },
+        {
+            test: "**/*.scss",
+            bundleName: "css/main.css",
+            renderEach: [
+                style.sass
             ]
-        }, {
-            test: "*.html",
-            fileName: "[path]/[name].html",
-            socketLoad: true,
-            render: [
-                yourHtmlTemplatRenderer
-            ]
-        }, {
+        },
+        {
             test: "js/**/*.js",
             bundleName: "js/all.js",
             render: [
                 jsRenderer
             ]
-        }, {
-            test: "**/*.scss",
-            bundleName: "all.css",
+        },
+        {
+            test: "**/*.html",
+            fileName: "[path]/[name].html",
+            socketLoad: true,
             render: [
-                yourSassRenderer
+                hbs.renderTempalte
             ]
         }
     ]
