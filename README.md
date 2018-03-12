@@ -5,12 +5,6 @@ If you have any questions or want to support this project please write me at mei
 
 Softpack takes a configuration to perform function on the given context of files that where registered through an regEx.
 
-
-every function will get three parameters. 
- - context of current processed file
- - object of current processed file 
- - configuration passed to softpack
-
 a small starter script could look like this:
 
 <code>
@@ -40,6 +34,11 @@ softpack.server({
 </code>
 this would watch all files in your project with the extension '.scss' and compile it to css files
 
+every render or init function will get three parameters. 
+ - context of current processed file
+ - object of current processed file 
+ - configuration passed to softpack
+
 
 It comes with two function.
 <pre>
@@ -56,7 +55,6 @@ example config:
 <pre>
 <code>
 
-
 var config = {
   /**
   * NOTE!
@@ -65,6 +63,33 @@ var config = {
   * are each are fictional
   */
 
+
+  BUILD: '...' , // will be set by softpack
+
+  /**
+   * executes on start server / build
+   * gets current configuration 
+  */
+  start: function(c) {
+    if(c.BUILD) {
+      console.log("starting build process")
+    } else {
+      console.log("starting server")
+    }
+  },
+
+
+  /**
+   * executes on server ready / build done
+   * gets current configuration 
+  */
+  end: function(c) {
+    if(c.BUILD) {
+      console.log("finished build process")
+    } else {
+      console.log("server ready")
+    }
+  },
 
   /** relative path to build directory */
   src: 'src',
@@ -165,6 +190,8 @@ var config = {
       /**
        * array of functions that will execute each on each file
        * will also execute on the bundle
+       * functions get two parameters
+       * current context, currentObject config
       */
       render: [
 
@@ -186,6 +213,8 @@ var config = {
       /**
        * array of functions that will execute each on each file
        * will also appy on the bundle
+       * functions get two parameters
+       * current context, currentObject config
        */
       renderEach: [
 
@@ -208,6 +237,8 @@ var config = {
 
       /**
        * array of functions that will execute each on each file
+       * functions get two parameters
+       * current context, currentObject config
        */
       render: [
 
