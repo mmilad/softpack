@@ -67,16 +67,16 @@ softpack.build(config)
 
 |   name    |   type  | optional | description |
 | --- | --- | --- | --- |
-| `BUILD` | boolean | no |  will be set by softpack on build and server start |
-| `start` | function | yes | perform a function on server / build start. gets the config as only parameter |
-| `end` | function | yes | perform a function on server / build end. gets the config as only parameter |
-| `src` | string | no | defines the source directory to read / compile served files |
-| `dist` | string | no | defines the distrubution directory to write files on build |
-| `rootPath` | string | no | absolute path to directory where src directory is |
-| `ignore` | array | yes | list of files or directory to ignore. glob or regEx |
-| `socketCallbacks` | object | yes | object with [key]:function format. can be emitted by frontend like. needs socketLoad to be true on served file |
-| `log` | object | yes | configures the output. <a href="#logoption">see more</a> |
-| `actions` | array | yes | list of objects with configurations. <a href="#actionoption">see more</a> |
+| BUILD | boolean | no |  will be set by softpack on build and server start |
+| start | function | yes | perform a function on server / build start. gets the config as only parameter |
+| end | function | yes | perform a function on server / build end. gets the config as only parameter |
+| src | string | no | defines the source directory to read / compile served files |
+| dist | string | no | defines the distrubution directory to write files on build |
+| rootPath | string | no | absolute path to directory where src directory is |
+| ignore | array | yes | list of files or directory to ignore. glob or regEx |
+| socketCallbacks | object | yes | object with [key]:function format. can be emitted by frontend like. needs socketLoad to be true on served file |
+| log | object | yes | configures the output. <a href="#logoption">see more</a> |
+| actions | array | yes | list of objects with configurations. <a href="#actionoption">see more</a> |
 
 
 
@@ -84,10 +84,10 @@ softpack.build(config)
 
 | name | type | default | description |
 | --- | --- | --- | --- |
-| `change` | boolean | false | output when watched file was changed |
-| `serve` | boolean | false | output when file was served |
-| `add` | boolean | true | output when file was added to watcher |
-| `delete` | boolean | true | output when file was deleted |
+| change | boolean | false | output when watched file was changed |
+| serve | boolean | false | output when file was served |
+| add | boolean | true | output when file was added to watcher |
+| delete | boolean | true | output when file was deleted |
 
 
 
@@ -95,14 +95,14 @@ softpack.build(config)
  
 | name | type | optional | description |
 | -- | --- | --- | --- |
-| `test` | string | no | glob or regEx used to match files |
-| `fileName` | string | yes | relative path with filename that is used to request file on serve and save on build. `[path]` is replaced with relative path or current file and `[name]` is replace with filename of current file (without extension) |
-| `buildName` | string | yes | will bundle matched files |
-| `init` | array | yes | array of functions that will execute when file is added to watcher or did change. get three parameter (context , current object, complete config) |
-| `render` | array | yes | array of functions that will execute when file is requested. get three parameter (context , current object, complete config). should modify the context. must have a return. will also apply on bundle if `bundleName` is set  |
-| `renderEach` | array | yes | array of functions that will execute on each matched file before added to bundle. should modify the context. must have a return. |
-| `socketLoad` | boolean | yes | will add socket.io snippet to enable `socketCallbacks` and auto reload on file changes |
-| `keep` | boolean | yes | will keep file on build |  
+| test | string | no | glob or regEx used to match files |
+| fileName | string | yes | relative path with filename that is used to request file on serve and save on build. [path] is replaced with relative path or current file and [name] is replace with filename of current file (without extension) |
+| buildName | string | yes | will bundle matched files |
+| init | array | yes | array of functions that will execute when file is added to watcher or did change. get three parameter (context , current object, complete config) |
+| render | array | yes | array of functions that will execute when file is requested. get three parameter (context , current object, complete config). should modify the context. must have a return. will also apply on bundle if bundleName is set  |
+| renderEach | array | yes | array of functions that will execute on each matched file before added to bundle. should modify the context. must have a return. |
+| socketLoad | boolean | yes | will add socket.io snippet to enable socketCallbacks and auto reload on file changes |
+| keep | boolean | yes | will keep file on build |  
 
 
 example config:
