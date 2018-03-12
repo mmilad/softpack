@@ -73,7 +73,7 @@ softpack.build(config)
 | `src` | string | no | defines the source directory to read / compile served files |
 | `dist` | string | no | defines the distrubution directory to write files on build |
 | `rootPath` | string | no | absolute path to directory where src directory is |
-| `ignore` | array | yes | list of files/ directory to ignore. regEx or glob |
+| `ignore` | array | yes | list of files or directory to ignore. glob or regEx |
 | `socketCallbacks` | object | yes | object with [key]:function format. can be emitted by frontend like. needs socketLoad to be true on served file |
 | `log` | object | yes | configures the output. <a href="#logoption">see more</a> |
 | `actions` | array | yes | list of objects with configurations. <a href="#actionoption">see more</a> |
@@ -95,12 +95,12 @@ softpack.build(config)
  
 | name | type | optional | description |
 | -- | --- | --- | --- |
-| `test` | glob / regEx | no | used to match files |
+| `test` | string | no | glob or regEx used to match files |
 | `fileName` | string | yes | relative path with filename that is used to request file on serve and save on build. `[path]` is replaced with relative path or current file and `[name]` is replace with filename of current file (without extension) |
 | `buildName` | string | yes | will bundle matched files |
 | `init` | array | yes | array of functions that will execute when file is added to watcher or did change. get three parameter (context , current object, complete config) |
-| `render` | array | yes | array of functions that will execute when file is requested. get three parameter (context , current object, complete config). will also apply on bundle if `bundleName` is set  |
-| `renderEach` | array | yes | array of functions that will execute on each matched file before added to bundle |
+| `render` | array | yes | array of functions that will execute when file is requested. get three parameter (context , current object, complete config). should modify the context. must have a return. will also apply on bundle if `bundleName` is set  |
+| `renderEach` | array | yes | array of functions that will execute on each matched file before added to bundle. should modify the context. must have a return. |
 | `socketLoad` | boolean | yes | will add socket.io snippet to enable `socketCallbacks` and auto reload on file changes |
 | `keep` | boolean | yes | will keep file on build |  
 
@@ -110,20 +110,6 @@ example config:
 <code>
 
 var config = {
-  /**
-  * NOTE!
-  * there are no functions defined by default.
-  * the functions in the init, render and render arrays
-  * are each are fictional
-  */
-
-
-  BUILD: '...' , // will be set by softpack
-
-  /**
-   * executes on start server / build
-   * gets current configuration 
-  */
   start: function(c) {
     if(c.BUILD) {
       console.log("starting build process")
@@ -131,12 +117,6 @@ var config = {
       console.log("starting server")
     }
   },
-
-
-  /**
-   * executes on server ready / build done
-   * gets current configuration 
-  */
   end: function(c) {
     if(c.BUILD) {
       console.log("finished build process")
@@ -144,20 +124,9 @@ var config = {
       console.log("server ready")
     }
   },
-
-  /** relative path to build directory */
   src: 'src',
-
-  /** relative path to build directory */
   dist: 'dist',
-
-  /** absolute path to project root to find src directory */
   rootPath: path.resolve(__dirname),
-
-  /** 
-   * array of strings with anymatch pattern
-   * to ignore files / directorys
-   */
   ignore: [
 
     /** ignores all */
@@ -172,11 +141,6 @@ var config = {
     /** ignores all scss files beginning with `_` */
     "src/ignored_specific/(_)*.scss", 
   ],
-
-  /**
-   * object with [key]:function format
-   * can be emitted by frontend
-   */
   socketCallbacks: {
     log: function (msg) {
       console.log(msg)
@@ -185,119 +149,39 @@ var config = {
       console.log("foo is emitted with", o.msg)
     }
   },
-
-  /** object to define log output by server */
   log: {
-
-    /** 
-     * output when watched file was changed
-     * false by default
-     */
     change: true,
-
-    /**
-     * output when file was served 
-     * false by default
-     */
     serve: true,
-
-    /**
-     * output when file was added to watcher
-     * true by default
-     */
     add: true,
-
-    /**
-     * output when watched file was deleted
-     * true by default
-     */
-    add: true,
+    delete: true,
   },
-
-  /** and array of objects */
   actions: [
     {
-      /** find all hbs files in all directories and subdirectories */
       test: "**/*.hbs",
-
-      /** 
-       * will execute when file is added to memory or was changed
-       * does not take a return
-       */
       init: [
-
-        /** register handlebars partial */
-        registerHbsPartial
+        // iniFunction
       ]
     },
     {
-
-      /** 
-       * find all js files in all
-       * directories and subdirectories under `js` directory
-       */
       test: "js/**/*.js",
-
-      /** bundles matched files to `js/main.js` */
       bundleName: "js/main.js",
-
-      /**
-       * array of functions that will execute each on each file
-       * will also execute on the bundle
-       * functions get two parameters
-       * current context, currentObject config
-      */
       render: [
-
-        /** 
-         * will run through all js files in `js/**`
-         * will also run on the merged context of 
-         * the bundle after their context is merged into `js/main.js`
-         */
-        jsRenderer
+        // renderFunction
       ]
     },
     {
-      /** find all scss files in all directories and subdirectories */
       test: "**/*.scss",
-
-      /** bundles matched files to `css/main.css` */
       bundleName: "css/main.css",
-
-      /**
-       * array of functions that will execute each on each file
-       * will also appy on the bundle
-       * functions get two parameters
-       * current context, currentObject config
-       */
       renderEach: [
-
-        /** 
-         * will run through all scss files 
-         * before their content is merged in `css/main.css` */
-        scssRenderer
+        // renderEachFunction
       ]
     },
     {
-
-      /** get all html files in all directories and subdirectories */
       test: "**/*.html",
-
-      /** will memorize file with processed path/name and html extension  */
       fileName: "[path]/[name].html",
-
-      /** adds socket io snippet to enable reload on change and socketCallbacks */
       socketLoad: true,
-
-      /**
-       * array of functions that will execute each on each file
-       * functions get two parameters
-       * current context, currentObject config
-       */
       render: [
-
-        /** will render html files with handlebar engine */
-        hbsRenderer
+        // renderFunction
       ]
     }
   ]
