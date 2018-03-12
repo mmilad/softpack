@@ -1,10 +1,44 @@
 # softpack
 
+
+If you have any questions or want to support this project please write me at meistermilad@gmail.com
+
 Softpack takes a configuration to perform function on the given context of files that where registered through an regEx.
 
-added github.
 
-there will be more updates in the future!
+every function will get three parameters. 
+ - context of current processed file
+ - object of current processed file 
+ - configuration passed to softpack
+
+a small starter script could look like this:
+
+<code>
+var softpack = require('softpack');
+var path = require('path');
+var nodeSass = require('node-sass');
+
+softpack.server({
+  dist: 'dist',
+  src: 'src',
+  rootPath: path.resolve(__dirname),
+  actions:[
+    {
+      test: '**/*.scss'
+      render: [
+        function(context, objectData, yourSoftPackConfig) {
+          return nodeSass.renderSync({
+              data: context,
+              file: objectData.fullPath,
+              outputStyle: "expanded"
+          }).css
+        }
+      ]
+    }
+  ]
+})
+</code>
+this would watch all files in your project with the extension '.scss' and compile it to css files
 
 
 It comes with two function.
@@ -131,8 +165,6 @@ var config = {
       /**
        * array of functions that will execute each on each file
        * will also execute on the bundle
-       * functions get two parameters
-       * current context, currentObject config
       */
       render: [
 
@@ -154,8 +186,6 @@ var config = {
       /**
        * array of functions that will execute each on each file
        * will also appy on the bundle
-       * functions get two parameters
-       * current context, currentObject config
        */
       renderEach: [
 
@@ -178,8 +208,6 @@ var config = {
 
       /**
        * array of functions that will execute each on each file
-       * functions get two parameters
-       * current context, currentObject config
        */
       render: [
 
@@ -275,3 +303,5 @@ var registerHbsPartial = function(context, config) {
 }
 </pre>
 here we would for example register `path/to/my/partials/person.hbs` as `person`
+
+
