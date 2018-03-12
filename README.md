@@ -195,31 +195,6 @@ softpack.server(config)
 the `softpack.server` and `softpack.build` function take the same configuration
 
 
-<h1 id ="asd">foo</h1>
-Configuration for server/build:
-
- - `src` path to source directory
- - `dist` path to build directory
- - `rootPath` absolute path to project
- - `port` default is 8000
- - `host` default is '0.0.0.0' ( localhost / yourIp)
- - `ignore` an array of strings with an anymatch pattern to ignore directories / files
- - `socketCallbacks` an object with `[key]`: `[function]` that can be registered if socketLoad is enabled, the frontend can then emit to server to make debugging easier
- - `log` an object to specify server log output
-    - `change` log if a file has changed (faöse by default) 
-    - `serve` log if a file was served (false by default) 
-    - `add` log if a file was added to memory (true by default) 
-    - `delete` log if file was deleted from memory (true by default) 
- - `actions` an array of of objet with the following properties:
-    - `socketLoad` set to true to add socket io snippet to html files (disabled on build)
-    - `test` an anymatch regExp to path files like `".hbs"` (check npm anymatch package)
-    - `init` an array of functions that recive 2 parameters (context and an object of the current processed configuration)
-    - `render` an array of functions that recive 2 parameters (context and an object of the current processed configuration)
-    - `keep` a boolean to keep or not keep original file on build (false by default)
-    - `fileName` an relative path to serve the current processed file with name and extension
-    - `socketLoad` set to false to add socket.io support.
-    - `bundleName` a string or function which returns a string, bundles all matching files 
-
 `socketCallbacks` example:
 <pre>
 ...
