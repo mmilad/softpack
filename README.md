@@ -3,10 +3,11 @@
 
 If you have any questions or want to support this project please write me at meistermilad@gmail.com
 
-Softpack takes a configuration to perform function on the given context of files that where registered through an regEx.
+Softpack takes a <a href="#config">configuration</a> to perform function/s on the given context of files that where registered through an regEx.
 
 a small starter script could look like this:
 
+<pre>
 <code>
 var softpack = require('softpack');
 var path = require('path');
@@ -32,6 +33,7 @@ softpack.server({
   ]
 })
 </code>
+</pre>
 this would watch all files in your project with the extension '.scss' and compile it to css files
 
 every render or init function will get three parameters. 
@@ -50,6 +52,58 @@ softpack.server(config)
 /* run build process */
 softpack.build(config)
 </pre>
+
+
+
+
+
+
+
+
+
+
+
+<h4 id="config">config options:</h4>
+
+|   name    |   type  | optional | description |
+| --- | --- | --- | --- |
+| `BUILD` | boolean | no |  will be set by softpack on build and server start |
+| `start` | function | yes | perform a function on server / build start. gets the config as only parameter |
+| `end` | function | yes | perform a function on server / build end. gets the config as only parameter |
+| `src` | string | no | defines the source directory to read / compile served files |
+| `dist` | string | no | defines the distrubution directory to write files on build |
+| `rootPath` | string | no | absolute path to directory where src directory is |
+| `ignore` | array | yes | list of files/ directory to ignore. regEx or glob |
+| `socketCallbacks` | object | yes | object with [key]:function format. can be emitted by frontend like. needs socketLoad to be true on served file |
+| `log` | object | yes | configures the output. <a href="#logoption">see more</a> |
+| `actions` | array | yes | list of objects with configurations. <a href="#actionoption">see more</a> |
+
+
+
+<h4 id="logoption">log parameter:</h4> 
+
+| name | type | default | description |
+| --- | --- | --- | --- |
+| `change` | boolean | false | output when watched file was changed |
+| `serve` | boolean | false | output when file was served |
+| `add` | boolean | true | output when file was added to watcher |
+| `delete` | boolean | true | output when file was deleted |
+
+
+
+<h4 id="actionoption">actions object parameter:</h4> 
+ 
+| name | type | optional | description |
+| -- | --- | --- | --- |
+| `test` | glob / regEx | no | used to match files |
+| `fileName` | string | yes | relative path with filename that is used to request file on serve and save on build. `[path]` is replaced with relative path or current file and `[name]` is replace with filename of current file (without extension) |
+| `buildName` | string | yes | will bundle matched files |
+| `init` | array | yes | array of functions that will execute when file is added to watcher or did change. get three parameter (context , current object, complete config) |
+| `render` | array | yes | array of functions that will execute when file is requested. get three parameter (context , current object, complete config). will also apply on bundle if `bundleName` is set  |
+| `renderEach` | array | yes | array of functions that will execute on each matched file before added to bundle |
+| `socketLoad` | boolean | yes | will add socket.io snippet to enable `socketCallbacks` and auto reload on file changes |
+| `keep` | boolean | yes | will keep file on build |  
+
 
 example config:
 <pre>
@@ -257,7 +311,7 @@ softpack.server(config)
 the `softpack.server` and `softpack.build` function take the same configuration
 
 
-
+<h1 id ="asd">foo</h1>
 Configuration for server/build:
 
  - `src` path to source directory
