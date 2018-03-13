@@ -12,12 +12,21 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {},
+  "devDependencies": {
+    "autoprefixer": "^8.1.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "handlebars": "^4.0.11",
+    "node-sass": "^4.7.2",
+    "postcss": "^6.0.19",
+    "postcss-js": "^1.0.1"
+  },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/mmilad/softpack.git"
+    "type": "git",
+    "url": "https://github.com/mmilad/softpack.git"
   },
   "dependencies": {
+    "anymatch": "^2.0.0",
     "chokidar": "^2.0.2",
     "express": "^4.16.2",
     "mime": "^2.2.0",

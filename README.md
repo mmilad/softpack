@@ -6,9 +6,8 @@ If you have any questions or want to support this project please write me at mei
 Softpack takes a <a href="#config">configuration</a> to perform function/s on the given context of files that where registered through an regEx.
 
 a small starter script could look like this:
+```javascript
 
-<pre>
-<code>
 var softpack = require('softpack');
 var path = require('path');
 var nodeSass = require('node-sass');
@@ -32,8 +31,9 @@ softpack.server({
     }
   ]
 })
-</code>
-</pre>
+
+```
+
 this would watch all files in your project with the extension '.scss' and compile it to css files
 
 every render or init function will get three parameters. 
