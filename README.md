@@ -6,6 +6,7 @@ If you have any questions or want to support this project please write me at mei
 Softpack takes a <a href="#config">configuration</a> to perform function/s on the given context of files that where registered through an regEx.
 
 a small starter script could look like this:
+
 ```javascript
 
 var softpack = require('softpack');
@@ -43,15 +44,16 @@ every render or init function will get three parameters.
 
 
 It comes with two function.
-<pre>
+```javascript
+
 var softpack = require("softpack")
 
 /* run developement server */
-softpack.server(config)
-
+softpack.server(config);
 /* run build process */
-softpack.build(config)
-</pre>
+softpack.build(config);
+
+```
 
 
 
@@ -63,7 +65,7 @@ softpack.build(config)
 
 
 
-<h4 id="config">config options:</h4>
+<h3 id="config">config options:</h3>
 
 |   name    |   type  | optional | description |
 | --- | --- | --- | --- |
@@ -80,7 +82,7 @@ softpack.build(config)
 
 
 
-<h4 id="logoption">log parameter:</h4> 
+<h3 id="logoption">log parameter:</h3> 
 
 | name | type | default | description |
 | --- | --- | --- | --- |
@@ -91,7 +93,7 @@ softpack.build(config)
 
 
 
-<h4 id="actionoption">actions object parameter:</h4> 
+<h3 id="actionoption">actions object parameter:</h3> 
  
 | name | type | optional | description |
 | -- | --- | --- | --- |
@@ -106,9 +108,8 @@ softpack.build(config)
 
 
 example config:
-<pre>
-<code>
 
+```javascript
 var config = {
   start: function(c) {
     if(c.BUILD) {
@@ -128,16 +129,12 @@ var config = {
   dist: 'dist',
   rootPath: path.resolve(__dirname),
   ignore: [
-
     /** ignores all */
     "src/ignored_all", 
-
     /** ignores all exept js files */
     "src/ignored_exept/(!*.js)",
-
     /** ignores all js files */
     "src/ignored_files/*.js", 
-
     /** ignores all scss files beginning with `_` */
     "src/ignored_specific/(_)*.scss", 
   ],
@@ -188,15 +185,15 @@ var config = {
 }
 softpack.server(config)
 // softpack.build(config)
-</code>
-</pre>
+```
 
 
 the `softpack.server` and `softpack.build` function take the same configuration
 
 
 `socketCallbacks` example:
-<pre>
+
+```javascript
 ...
 socketCallbacks: {
     log: function(msg) {
@@ -207,17 +204,18 @@ socketCallbacks: {
     }
 }
 ...
-</pre>
+```
 
 and on frontend
-<pre>
+
+```javascript
 ...
 socket.emit("log", "hello server")
 socket.emit("foo", {
  msg: "hello foo!"   
 })
 ...
-</pre>
+```
 
 
 the diffrence between the functions inside the `init` array and the `render` array are that the functions inside the `init` array will execute once a file was added to the watcher or changed and the functions inside the `render` array are executed when the file is requested through the `fileName` path.
