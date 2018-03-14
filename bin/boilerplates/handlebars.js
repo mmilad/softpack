@@ -12,7 +12,7 @@ var fs = require('fs'),
  * use for debugging in handlebar templates like:
  * {{ json myObject }}
  */
-handlebars.registerHelper('json', function(context) {
+handlebars.registerHelper('json', function (context) {
     return JSON.stringify(context, null, 4);
 });
 
@@ -22,8 +22,8 @@ handlebars.registerHelper('json', function(context) {
  * for example my/partial/dir/myPartial.hbs
  * will be availeble like {{> myPartial }}
  */
-function registerPartial (context, object, softPackConfig) {
-    handlebars.registerPartial(object.fileName.replace(path.extname(objecto.fileName), ''), context)   
+function registerPartial(context, object, softPackConfig) {
+    handlebars.registerPartial(object.fileName.replace(path.extname(object.fileName), ''), context)
 }
 
 /**
@@ -31,11 +31,11 @@ function registerPartial (context, object, softPackConfig) {
  * tries to load a json file located in the same directory like the template
  * with the same name but with '.json' extension
  */
-function renderTempalte (context, object, softPackConfig) {
+function renderTempalte(context, object, softPackConfig) {
     var tpl = handlebars.compile(context),
         data = {},
         dataPath = object.fullPath.replace(path.extname(object.fileName), '.json')
-    if(fs.existsSync(dataPath)) {
+    if (fs.existsSync(dataPath)) {
         data = require(dataPath);
     }
     return tpl(data);
@@ -48,5 +48,5 @@ function renderTempalte (context, object, softPackConfig) {
 module.exports = {
     handlebars: handlebars,
     registerPartial: registerPartial,
-    renderTempalte: renderTempalte
+    render: renderTempalte
 }
