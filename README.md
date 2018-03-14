@@ -1,9 +1,32 @@
 # softpack
 
+If you have any questions or want to contribute please contact me at meistermilad@gmail.com
 
-If you have any questions or want to support this project please write me at meistermilad@gmail.com
+<h2>Installation</h2>
+
+`npm install softpack` or `npm install softpack -g`
+
+<h2>cli usage</h2>
+
+<h6>Create a config file</h6>
+
+`softpack --boilerplate config > softpack.config.js`
+
+<h6>Run server</h6>
+
+`softpack --server`
+
+<h6>Run build process</h6>
+
+`softpack --build`
+
+
+
+<h2>API usage</h2>
 
 Softpack takes a <a href="#config">configuration</a> to perform function/s on the given context of files that where registered through an regEx.
+
+
 
 a small starter script could look like this:
 
@@ -23,7 +46,6 @@ softpack.server({
       render: [
         function(context, objectData, yourSoftPackConfig) {
           return nodeSass.renderSync({
-              data: context,
               file: objectData.fullPath,
               outputStyle: "expanded"
           }).css
