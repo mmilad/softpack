@@ -1,13 +1,13 @@
 {
   "name": "softpack",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "description": "",
   "main": "index.js",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "softpack"
   },
   "keywords": [],
   "author": "",
@@ -18,11 +18,10 @@
     "babel-preset-es2015": "^6.24.1",
     "handlebars": "^4.0.11",
     "node-sass": "^4.7.2",
-    "postcss": "^6.0.19",
-    "postcss-js": "^1.0.1"
+    "postcss": "^6.0.19"
   },
   "bin": {
-    "softpack": "index.js"
+    "softpack": "./bin/index.js"
   },
   "repository": {
     "type": "git",

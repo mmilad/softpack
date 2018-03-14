@@ -1,0 +1,10 @@
+var path = require('path');
+
+module.exports = {
+    src: 'src',
+    dist: 'dist',
+    rootPath: path.resolve(__dirname),
+    actions: [
+        // your actions
+    ]
+}
