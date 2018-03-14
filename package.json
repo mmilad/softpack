@@ -1,6 +1,6 @@
 {
   "name": "softpack",
-  "version": "0.2.9",
+  "version": "0.3.0",
   "description": "",
   "main": "index.js",
   "directories": {
@@ -20,6 +20,9 @@
     "node-sass": "^4.7.2",
     "postcss": "^6.0.19",
     "postcss-js": "^1.0.1"
+  },
+  "bin": {
+    "softpack": "index.js"
   },
   "repository": {
     "type": "git",
