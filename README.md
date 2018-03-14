@@ -46,20 +46,18 @@ every render or init function will get three parameters.
 It comes with two function.
 ```javascript
 
-var softpack = require("softpack")
+var softpack = require('softpack');
+var path = require('path');
 
+var config = {
+  rootPath: path.resolve(__dirname),
+};
 /* run developement server */
 softpack.server(config);
 /* run build process */
 softpack.build(config);
 
 ```
-
-
-
-
-
-
 
 
 
@@ -72,8 +70,8 @@ softpack.build(config);
 | BUILD | boolean | no |  will be set by softpack on build and server start |
 | start | function | yes | perform a function on server / build start. gets the config as only parameter |
 | end | function | yes | perform a function on server / build end. gets the config as only parameter |
-| src | string | no | defines the source directory to read / compile served files |
-| dist | string | no | defines the distrubution directory to write files on build |
+| src | string | yes | defines the source directory to read / compile served files. 'src' by default |
+| dist | string | yes | defines the distrubution directory to write files on build. 'dist' by default |
 | rootPath | string | no | absolute path to directory where src directory is |
 | ignore | array | yes | list of files or directory to ignore. glob or regEx |
 | socketCallbacks | object | yes | object with [key]:function format. can be emitted by frontend like. needs socketLoad to be true on served file |
