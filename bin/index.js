@@ -40,11 +40,12 @@ checkBoilerPlate('--boilerplate')
 checkBoilerPlate('--bp')
 
 if (fs.existsSync(configPath)) {
-    
+    var config = require(configPath)
+    console.log(config)
     if(process.argv.indexOf('--server') > -1) {
-        softpack.server(require(configPath))
+        softpack.server(config)
     } else if(process.argv.indexOf('--build') > -1) {
-        softpack.build(require(configPath))
+        softpack.build(config)
     }
 } else {
     console.log("softpack.config.js not found")

@@ -3,6 +3,7 @@ node_modules
 src
 dist
 test.js
+softpack.config.js
 lib/hbsRenderer.js
 lib/jsRenderer.js
 lib/sassRenderer.js
