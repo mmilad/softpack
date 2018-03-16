@@ -6,14 +6,19 @@ var userPath = process.cwd();
 var configPath = path.resolve(userPath, 'softpack.config.js')
 
 var contents;
-var boilerPlates = fs.readdirSync(path.resolve(__dirname, 'boilerplates'));
-softpack = require('./../index');
+var boilerPlates = [];
+fs.readdirSync(path.resolve(__dirname, 'boilerplates')).forEach(e => {
+    boilerPlates.push(e.replace('.js', ''))
+})
+var softpack = require('./../index');
+
+var options = '--server,--build,--boilerplate'.split(',')
 
 function checkBoilerPlate(name) {
 
     if(process.argv.indexOf(name) > -1) {
         if(process.argv[process.argv.indexOf(name)+1]) {
-            var bpPath = path.resolve(__dirname, 'boilerplates', process.argv[process.argv.indexOf(name)+1]);
+            var bpPath = path.resolve(__dirname, 'boilerplates', process.argv[process.argv.indexOf(name)+1])+'.js';
             if (fs.existsSync(bpPath)) {
                 contents = fs.readFileSync(bpPath, 'utf8');
                 console.log(contents)
@@ -41,11 +46,13 @@ checkBoilerPlate('--bp')
 
 if (fs.existsSync(configPath)) {
     var config = require(configPath)
-    console.log(config)
     if(process.argv.indexOf('--server') > -1) {
         softpack.server(config)
     } else if(process.argv.indexOf('--build') > -1) {
         softpack.build(config)
+    } else {
+        console.log('please choose on of following options:')
+        options.forEach( e => console.log(e))
     }
 } else {
     console.log("softpack.config.js not found")

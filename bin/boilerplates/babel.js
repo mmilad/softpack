@@ -20,5 +20,5 @@ function jsRenderer(context, object, softPackConfig) {
  */
 module.exports = {
     babel: babel,
-    jsRenderer: jsRenderer
+    render: jsRenderer
 }

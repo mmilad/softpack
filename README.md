@@ -12,6 +12,12 @@ If you have any questions or want to contribute please contact me at meistermila
 
 `softpack --boilerplate config > softpack.config.js`
 
+<h6>Create boilerplate code</h6>
+
+type `softpack --boilerplate` to see availeble boilerpaltes
+
+use like `softpack --boilerplate {boilerplateName} > myFile.js`
+
 <h6>Run server</h6>
 
 `softpack --server`

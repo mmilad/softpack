@@ -6,13 +6,13 @@
 
 var nodeSass = require('node-sass');
 var autoprefixer = require('autoprefixer');
-var postcss      = require('postcss');
- 
+var postcss = require('postcss');
+
 
 /**
  * pass css code to get browser prefixes 
  */
-function prefix (context, object, softPackConfig) {
+function prefix(context, object, softPackConfig) {
     var postcss = require('postcss');
     var autoprefixer = require('autoprefixer');
     return postcss([autoprefixer({
@@ -24,7 +24,7 @@ function prefix (context, object, softPackConfig) {
 /**
  * render scss to css
  */
-function renderSass (context, object, softPackConfig) {
+function renderSass(context, object, softPackConfig) {
     return nodeSass.renderSync({
         file: object.fullPath, // use filename to enable import statements
         outputStyle: "expanded"
@@ -38,6 +38,6 @@ module.exports = {
     nodeSass: nodeSass,
     autoprefixer: autoprefixer,
     postcss: postcss,
-    renderSass: renderSass,
+    render: renderSass,
     prefix: prefix
 };
