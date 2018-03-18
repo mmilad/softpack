@@ -21,7 +21,13 @@ function checkBoilerPlate(name) {
             var bpPath = path.resolve(__dirname, 'boilerplates', process.argv[process.argv.indexOf(name)+1])+'.js';
             if (fs.existsSync(bpPath)) {
                 contents = fs.readFileSync(bpPath, 'utf8');
-                console.log(contents)
+                if(process.argv.indexOf('--save') > -1) {
+                    if(process.argv[process.argv.indexOf('--save')+1]) {
+                        fs.writeFileSync(process.argv[process.argv.indexOf('--save')+1], contents)
+                    }
+                } else {
+                    console.log(contents)
+                }
             } else {
                 console.log('no boilerplate found for:')
                 console.log(process.argv[process.argv.indexOf(name)+1])
