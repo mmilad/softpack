@@ -6,7 +6,10 @@ var userPath = process.cwd();
 var configPath = path.resolve(userPath, 'softpack.config.js')
 
 var contents;
-var boilerPlates = fs.readdirSync(path.resolve(__dirname, 'boilerplates'));
+var boilerPlates = [];
+fs.readdirSync(path.resolve(__dirname, 'boilerplates')).forEach(e => {
+    boilerPlates.push(e.replace('.js', ''))
+})
 var softpack = require('./../index');
 
 var options = '--server,--build,--boilerplate'.split(',')

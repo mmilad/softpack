@@ -10,7 +10,16 @@ If you have any questions or want to contribute please contact me at meistermila
 
 <h6>Create a config file</h6>
 
-`softpack --boilerplate config > softpack.config.js`
+`softpack --boilerplate config` 
+and save output as `softpack.config.js`
+or where you want it if you use api instead of cli
+
+<h6>Create boilerplate code</h6>
+
+type `softpack --boilerplate` to see availeble boilerpaltes
+
+use like `softpack --boilerplate {boilerplateName}`
+and save output where you want it
 
 <h6>Create boilerplate code</h6>
 
