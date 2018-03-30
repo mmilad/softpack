@@ -1,3 +1,8 @@
+var js = require('./lib/babel'),
+  hbs = require('./lib/handlebars'),
+  sass = require('./lib/sass');
+console.log(process.cwd())
+
 module.exports = {
   start: function (softpackConfig) {
     if (softpackConfig.BUILD) {
@@ -40,5 +45,35 @@ module.exports = {
     add: true,
     delete: true,
   },
-  actions: []
+  actions: [
+    {
+      test: "**/*.hbs",
+      init: [
+        hbs.registerPartial
+      ]
+    },
+    {
+      test: "**/*.scss",
+      bundleName: "css/main.css",
+      renderEach: [
+        sass.render,
+        sass.prefix
+      ]
+    },
+    {
+      test: "**/*.js",
+      bundleName: "js/main.js",
+      renderEach: [
+        js.render
+      ]
+    },
+    {
+      test: "**/*.html",
+      fileName: "[path]/[name].html",
+      socketLoad: true,
+      render: [
+        hbs.render
+      ]
+    }
+  ]
 }
