@@ -4,6 +4,14 @@ If you have any questions or want to contribute please contact me at meistermila
 
 <b>Note: This module uses anymatch and has Bash-parity, please be aware that Windows-style backslashes are not supported as separators. See https://github.com/micromatch/micromatch#backslashes for more information.</b>
 
+<h2>Usage without Installation</h2>
+
+`npx softpack --server`
+
+or
+
+`npx softpack --build`
+
 <h2>Installation</h2>
 
 `npm install softpack` or `npm install softpack -g`
