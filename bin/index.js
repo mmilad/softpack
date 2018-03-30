@@ -54,7 +54,7 @@ if (fs.existsSync(configPath)) {
     config = require(configPath);
 } else {
     config = require('./default.config');
-    var babel = require('./boilerplates/babel'),
+    var js = require('./boilerplates/babel'),
         hbs = require('./boilerplates/handlebars'),
         sass = require('./boilerplates/sass');
 
@@ -81,7 +81,7 @@ if (fs.existsSync(configPath)) {
             js.render
         ]
     });
-        
+
     config.actions.push({
         test: "**/*.html",
         fileName: "[path]/[name].html",
