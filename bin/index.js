@@ -57,21 +57,40 @@ if (fs.existsSync(configPath)) {
     var babel = require('./boilerplates/babel'),
         hbs = require('./boilerplates/handlebars'),
         sass = require('./boilerplates/sass');
-        config.actions.push({
-            test: "**/*.hbs",
-            init: [
-                hbs.registerPartial
-            ]
-        })
-        config.actions.push({
-            test: "**/*.scss",
-            bundleName: "css/main.css",
-            keep: false,
-            renderEach: [
-              sass.render,
-              sass.prefix
-            ]
-        })
+
+    config.actions.push({
+        test: "**/*.hbs",
+        init: [
+            hbs.registerPartial
+        ]
+    });
+    
+    config.actions.push({
+        test: "**/*.scss",
+        bundleName: "css/main.css",
+        renderEach: [
+            sass.render,
+            sass.prefix
+        ]
+    });
+
+    config.actions.push({
+        test: "**/*.js",
+        bundleName: "js/main.js",
+        renderEach: [
+            js.render
+        ]
+    });
+        
+    config.actions.push({
+        test: "**/*.html",
+        fileName: "[path]/[name].html",
+        socketLoad: true,
+        render: [
+            hbs.renderTempalte
+        ]
+    });
+
 }
 
 if (process.argv.indexOf('--server') > -1) {
